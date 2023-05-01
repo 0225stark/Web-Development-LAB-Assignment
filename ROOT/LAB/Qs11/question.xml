@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!DOCTYPE question-paper[
+    <!ELEMENT question-paper (question*)>
+    <!ELEMENT question (text, optionA, optionB, optionC, optionD, answer)>
+    <!ELEMENT text (#PCDATA)>
+    <!ELEMENT optionA (#PCDATA)>
+    <!ELEMENT optionB (#PCDATA)>
+    <!ELEMENT optionC (#PCDATA)>
+    <!ELEMENT optionD (#PCDATA)>
+    <!ELEMENT answer (#PCDATA)>
+    <!ATTLIST question no CDATA #REQUIRED>
+    <!ATTLIST answer value (optionA|optionB|optionC|optionD) #REQUIRED>
+]>
+<question-paper>
+<question no="1">
+    <text>The full form of CSS is:</text>
+    <optionA>Cascading Style Sheets.</optionA>
+    <optionB>Coloured Special Sheets.</optionB>
+    <optionC>Coloured Style Sheets.</optionC>
+    <optionD>None of the above</optionD>
+    <answer value="optionA"/>
+</question>
+<question no="2">
+    <text>How can we change the background color of an element?</text>
+    <optionA> background-color</optionA>
+    <optionB>Colour</optionB>
+    <optionC>Both a and b</optionC>
+    <optionD>None of the above</optionD>
+    <answer value="optionA"/>
+</question>
+</question-paper>

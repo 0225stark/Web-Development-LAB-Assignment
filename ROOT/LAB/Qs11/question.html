@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Question 11</title>
+    </head>
+    <body id="body">
+        <script>
+            var xmlhttp = new XMLHttpRequest();
+            xmlhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    myFunction(this);
+                }
+            };
+            xmlhttp.open("GET", "question.xml", true);
+            xmlhttp.send();
+
+            function myFunction(xml) {
+                var i;
+                var xmlDoc = xml.responseXML;
+                var content = "";
+                var x = xmlDoc.getElementsByTagName("question");
+                for (i = 0; i < x.length; i++) {
+                    content +=
+                        "<h3>Question No. " + x[i].getAttribute("no") + "</h3>" +
+
+                        "<h4>" + x[i].getElementsByTagName("text")[0].innerHTML + "</h4>" +
+                        
+                        "<ul>" +
+                        "<li>" + x[i].getElementsByTagName("optionA")[0].innerHTML + "</li>" +
+                        "<li>" + x[i].getElementsByTagName("optionB")[0].innerHTML + "</li>" +
+                        "<li>" + x[i].getElementsByTagName("optionC")[0].innerHTML + "</li>" +
+                        "<li>" + x[i].getElementsByTagName("optionD")[0].innerHTML + "</li>" +
+                        "</ul>" +
+
+                        "<h4>Answer: - " + x[i].getElementsByTagName("answer")[0].getAttribute("value") + "</h4>";   
+                }
+                document.getElementById("body").innerHTML = content;
+            }
+        </script>
+    </body>
+</html>

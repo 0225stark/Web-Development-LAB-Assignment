@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Indexed DB</title>
+</head>
+
+<body>
+    <br>
+    <button onclick="showBox()">Add Components</button> <br><br>
+    <dialog id="boxAdd">
+        <h2>Insert in Database</h2>
+        Name : <input type="text" id="name"><br><br>
+        Manufaturer : <input type="text" id="manu"> <br><br>
+        Price : <input type="text" id="price"> <br><br>
+        <button id="submit" onclick="addData()">Submit</button>
+
+    </dialog>
+
+
+    <br><br><br><br>
+
+    <button onclick="deleteBox()">Delete Components</button> <br><br>
+    <dialog id="boxDelete">
+        <h2>Delete in Database</h2>
+        Name : <input type="text" id="name2"><br><br>
+        Manufaturer : <input type="text" id="manu2"> <br><br>
+        <button id="submit" onclick="deleteData()">Submit</button>
+
+    </dialog>
+
+    <br><br><br><br>
+
+    <button onclick="updateBox()">Update Components</button><br><br>
+    <dialog id="boxUpdate">
+        <h2>Update in Database</h2>
+        Name : <input type="text" id="name3"><br><br>
+        Manufaturer : <input type="text" id="manu3"> <br><br>
+        <h4>Enter price to update : <input type="text" id="price3"><br></h4>
+        <button id="submit" onclick="updateData()">Submit</button>
+
+    </dialog>
+
+    <br><br><br><br>
+
+    <button onclick="showData()">Show Components</button> <br><br>
+    <div id="details"> </div> <br>
+
+
+</body>
+
+<script>
+
+    document.getElementById('details').innerHTML = "";
+    document.getElementById('boxUpdate').close();
+    document.getElementById('boxDelete').close();
+    document.getElementById('boxAdd').close();
+    var db;
+    var request = window.indexedDB.open("ComponentsDB", 1);
+
+    request.onerror = event => {
+        alert("DB creation Failed !");
+    };
+
+    request.onsuccess = event => {
+        db = event.target.result;
+        console.log("Successful \n" + db);
+    };
+
+    request.onupgradeneeded = event => {
+        db = event.target.result;
+        db.onerror = event => {
+            alert("Error on upgreade !");
+        }
+        var objectStore = db.createObjectStore("components", { keyPath: ['name', 'manu'] });
+    };
+
+
+    function showBox() {
+        document.getElementById('details').innerHTML = "";
+        document.getElementById('boxUpdate').close();
+        document.getElementById('boxDelete').close();
+
+        document.getElementById('boxAdd').show();
+    }
+
+    function deleteBox() {
+        document.getElementById('details').innerHTML = "";
+        document.getElementById('boxAdd').close();
+        document.getElementById('boxUpdate').close();
+
+        document.getElementById('boxDelete').show();
+    }
+
+    function updateBox() {
+        document.getElementById('details').innerHTML = "";
+        document.getElementById('boxAdd').close();
+        document.getElementById('boxDelete').close();
+
+        document.getElementById('boxUpdate').show();
+    }
+
+    function addData() {
+
+        let comp_name = document.getElementById('name').value;
+        let comp_manu = document.getElementById('manu').value;
+        let comp_price = document.getElementById('price').value;
+
+        if (comp_price < 0) {
+            alert("Price Cannot be negative ");
+            return;
+        }
+        var request = db.transaction(["components"], "readwrite").objectStore("components").add({ name: comp_name, manu: comp_manu, price: comp_price });
+
+        request.onsuccess = function (event) {
+            alert("Data added successfully");
+        };
+
+        request.onerror = function (event) {
+            alert("Sorry Try another Name and Manufacturure !!! ");
+        };
+    }
+
+    function showData() {
+        document.getElementById('boxUpdate').close();
+        document.getElementById('boxDelete').close();
+        document.getElementById('boxAdd').close();
+
+        var row = "<h2> Name &nbsp &nbsp Manufacturure &nbsp &nbspPrice </h2> ";
+
+        var objectStore = db.transaction("components").objectStore("components");
+
+        objectStore.openCursor().onsuccess = function (event) {
+            var cursor = event.target.result;
+            if (cursor) {
+                row += "<br><br><h4>" + cursor.value.name + "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp" + cursor.value.manu + "&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp" + cursor.value.price + "</h4>";
+                cursor.continue();
+            } else {
+                console.log("No more entries!");
+            }
+            document.getElementById('details').innerHTML = row;
+        };
+    }
+
+    function deleteData() {
+        let comp_name = document.getElementById('name2').value;
+        let comp_manu = document.getElementById('manu2').value;
+        let flag=0;
+
+        var objectStore = db.transaction(["components"], "readwrite").objectStore("components");
+        var request = objectStore.delete([comp_name, comp_manu]);
+
+        request.oncomplete = function (event) {
+            alert("Deleted successfully");
+            flag=1;
+        };
+
+        if(flag==0){
+            alert("Failed to Delete");
+        }
+    }
+
+    function updateData() {
+        let comp_name = document.getElementById('name3').value;
+        let comp_manu = document.getElementById('manu3').value;
+        let comp_price = document.getElementById('price3').value;
+        let flag = 0;
+
+        if (comp_price < 0) {
+            alert("Price Cannot be negative ");
+            return;
+        }
+
+        var objectStore = db.transaction(["components"], "readwrite").objectStore("components");
+
+        objectStore.openCursor().onsuccess = function (event) {
+            const cursor = event.target.result;
+            if (cursor) {
+                if (cursor.value.name === comp_name && cursor.value.manu === comp_manu) {
+                    const updateData = cursor.value;
+                    updateData.price = comp_price;
+                    const request = cursor.update(updateData);
+                    request.onsuccess = function () {
+                        flag = 1;
+                        alert("updated successfully");
+                    };
+                };
+                cursor.continue();
+            }
+        };
+    }
+
+
+</script>
+
+</html>

@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bill</title>
+    <style>
+      
+      div {
+        margin: 5% auto;
+        background-color: white;
+        text-align: center;
+        width: 50%;
+        border-radius: 15px;
+        padding: 5%;
+        font-size: 22px;
+      }
+      input,
+      label {
+        font-size: 20px;
+        margin: 5px auto;
+      }
+      input {
+        padding: 5px auto;
+      }
+      button {
+        padding: 15px;
+        font-size: 22px;
+        margin: 20px auto;
+        background-color: #bb2124;
+        border: none;
+        color: white;
+      }
+      #date {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <h1>Online Bill Payment</h1>
+      <form action="/" method="post">
+        
+        <p>Please select Time of payment:</p>
+          <input type="radio" id="now" name="time" value="now" />  
+        <label for="html">Pay Now</label><br />
+          <input type="radio" id="later" name="time" value="later" />  
+        <label for="css">Pay Later</label><br />
+         
+        <input type="date" id="date" />
+        <br />
+        <button type="submit" id="pay">Pay</button>
+      </form>
+    </div>
+    <script>
+      var later = document.getElementById("later");
+      later.addEventListener("click", function () {
+        var date = document.getElementById("date");
+        date.style.display = "block";
+      });
+      var now = document.getElementById("now");
+      now.addEventListener("click", function () {
+        var date = document.getElementById("date");
+        date.style.display = "none";
+      });
+    </script>
+  </body>
+</html>

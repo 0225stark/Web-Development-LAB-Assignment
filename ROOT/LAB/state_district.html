@@ -1,0 +1,74 @@
+<html>
+	<body>
+		<label for="state">Select a state: </label>
+
+		<select name="state" id="state" onchange="handleChangeState()">
+		<option value="" disabled selected hidden>Choose state</option>
+		  <option value="gujarat">Gujarat</option>
+		  <option value="west bengal">West Bengal</option>
+		  <option value="assam">Assam</option>
+		  <option value="maharashtra">Maharashtra</option>
+		  <option value="kerala">kerala</option>
+		  <option value="tamil nadu">Tamil Nadu</option>
+		  <option value="rajasthan">Rajasthan</option>
+		  <option value="bihar">Bihar</option>
+		</select>
+		<br><br>
+		<label for="district">Select a district: </label>
+
+		<select name="district" id="district" onchange="handleChangeDistrict()">
+		</select>
+
+		<div id="description" style="display: none;">
+			<h4>Description of district: </h4>
+			<p></p>
+		</div>
+	</body>
+	<script type="text/javascript">
+		const state_dist_map={
+			"gujarat": ["Vadodara","Rajkot"],
+			"west bengal": ["Jalpaiguri","Nadia"],
+			"assam": ["Jorhat","Golaghat"],
+			"maharashtra": ["Nagpur","Aurangabad"],
+			"kerala": ["Palakkad","Kannur"],
+			"tamil nadu": ["Chennai","Coimbatore"],
+			"rajasthan": ["Sikar","Rajsamand"],
+			"bihar": ["Bhojpur","Buxar"]
+		}
+		const dist_desc_map={
+			"gujarat-vadodara": "This is vadodara district of gujarat state.",
+			"west bengal-jalpaiguri": "This is jalpaiguri district of west-bengal state.",
+			"assam-jorhat": "This is jorhat district of assam state.",
+			"maharashtra-nagpur": "This is nagpur district of maharashtra state.",
+			"kerala-palakkad": "This is palakkad district of kerala state.",
+			"tamil nadu-chennai": "This is chennai district of tamil nadu state.",
+			"rajasthan-sikar": "This is Sikar district of rajasthan state.",
+			"bihar-bhojpur": "This is bhojpur district of bihar state.",
+			"gujarat-rajkot": "This is rajkot district of gujarat state.",
+			"west bengal-nadia": "This is nadia district of west-bengal state.",
+			"assam-golaghat": "This is golaghat district of assam state.",
+			"maharashtra-aurangabad": "This is aurangabad district of maharashtra state.",
+			"kerala-kannur": "This is kannur district of kerala state.",
+			"tamil nadu-coimbatore": "This is coimbatore district of tamil nadu state.",
+			"rajasthan-rajsamand": "This is rajsamand district of rajasthan state.",
+			"bihar-buxar": "This is Buxar district of bihar state." 
+		}
+		function handleChangeState(){
+			document.getElementById('description').style.display="none";
+			document.getElementById('district').innerHTML="";
+			document.getElementById('district').innerHTML='<option value="" disabled selected hidden>Choose district</option>';
+			const selected_state=document.getElementById('state').value;
+			state_dist_map[selected_state].forEach(function(district){
+				const option=document.createElement('option');
+				option.innerText=district;
+				option.setAttribute('value',district.toLowerCase());
+				document.getElementById('district').appendChild(option);
+			})
+		}
+		function handleChangeDistrict(){
+			document.getElementById('description').style.display="block";
+			document.querySelector('#description p').innerHTML=dist_desc_map[document.getElementById('state').value+"-"+document.getElementById('district').value];
+
+		}
+	</script>
+</html>

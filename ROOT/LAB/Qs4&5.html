@@ -1,0 +1,50 @@
+<html>
+<head>
+	<title>LOGIN PAGE</title>
+</head>
+<body>
+<label for="username">Username</label>
+	<input type="text" placeholder="Username" id="username" />
+<p id="usernameerror" style="color:red"></p>
+<br/>
+<label for="password">Password</label>
+<input type="password" placeholder="Password" id="password" />
+<p id="passworderror" style="color:red"></p>
+<br/>
+<button>Submit</button>
+
+
+
+
+<script>
+	const usr = document.getElementById("username")
+	const pssd = document.getElementById("password")
+	const errU = document.getElementById("usernameerror")
+	const errP = document.getElementById("passworderror")
+	const usrPattern = /[a-zA-Z0-9_]+$/
+	usr.addEventListener('keyup', (e) => {
+	errU.innerText = ""
+		if(!usrPattern.test(e.target.value) || e.target.value.length > 10) {
+		let res = usrPattern.test(e.target.value)
+		console.log("User pattern matched", res)
+
+		errU.innerText = "Invalid username"
+		}
+	})
+	pssd.addEventListener('keyup', (e) => {
+	errP.innerText = ""
+		if(e.target.value.length < 6 || e.target.value.length > 10) {
+			errP.innerText = "Password must be between 6-10 characters"
+		}
+		if(!/[0-9]/.test(e.target.value)) {
+			errP.innerText = "Password must contain one digit"
+		}
+		if(!/[A-Z]/.test(e.target.value)) {
+			errP.innerText = "Password must contain one uppercase letter"
+		}
+	})
+	
+
+</script>
+</body>
+</html>

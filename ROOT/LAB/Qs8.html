@@ -1,0 +1,110 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      
+      div {
+        margin: 5% auto;
+        background-color: white;
+        text-align: center;
+        width: 50%;
+        border-radius: 15px;
+        padding: 5%;
+        font-size: 22px;
+      }
+      select,
+      label {
+        font-size: 20px;
+        margin: 5px auto;
+        display: inline;
+      }
+      input {
+        padding: 5px auto;
+      }
+      button {
+        padding: 15px;
+        font-size: 22px;
+        margin: 20px auto;
+        background-color: #bb2124;
+        border: none;
+        color: white;
+      }
+      #date {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div>
+      <h1>Subjects of BE IT</h1>
+      <form action="/" method="post">
+        <!-- <img
+          src="data:image/jpeg;base64,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"
+        /> -->
+        <label>Select Year:</label>
+         <select name="year" id="year">
+          <option value="1st">1st</option>
+          <option value="2nd">2nd</option>
+          <option value="3rd">3rd</option>
+          <option value="4th">4th</option>
+        </select>
+
+        <label>Select Semester:</label>
+         <select name="sem" id="sem">
+          <option value="1st">1st</option>
+          <option value="2nd">2nd</option>
+        </select>
+        <br />
+        <button type="button" id="check">Check</button>
+        <p id="sub"></p>
+      </form>
+    </div>
+    <script>
+      var arr = [
+        "Math , Physics , Chemistry , Sociology , Engineering Mechanics , TCESS",
+        "Math , Electronics , Electrical , Engineering Drawing, Computer Programming and Numerical Methods",
+        "Math, Data Structures and Algorithms, Object Oriented Programming, Computer Organisation and Architecture, Database Management Systems, Assembly Language",
+        "Math, Object Oriented Systems, Computer Networks, Software Engineering, Graph Theory and Combinatorics, Graphics and Geometrical Modelling",
+        "Artificial Intelligence/ Cloud Computing, Mobile Networks, Operating Systems, Web Technologies-1, Automata and Compiler",
+        "Web Technologies-2, Information Security, Multimedia Coding and Communication, Design and analysis of Algorithm, Open Elective",
+        "Machine Learning, Seminar",
+        "8th",
+      ];
+      var check = document.getElementById("check");
+      var sub = document.getElementById("sub");
+      check.addEventListener("click", function () {
+        var year = document.getElementById("year");
+        var sem = document.getElementById("sem");
+        console.log(year.value, sem.value);
+        if (year.value === "1st" && sem.value === "1st") {
+          sub.innerText = arr[0];
+        }
+        if (year.value === "1st" && sem.value === "2nd") {
+          sub.innerText = arr[1];
+        }
+        if (year.value === "2nd" && sem.value === "1st") {
+          sub.innerText = arr[2];
+        }
+        if (year.value === "2nd" && sem.value === "2nd") {
+          sub.innerText = arr[3];
+        }
+        if (year.value === "3rd" && sem.value === "1st") {
+          sub.innerText = arr[4];
+        }
+        if (year.value === "3rd" && sem.value === "2nd") {
+          sub.innerText = arr[5];
+        }
+        if (year.value === "4th" && sem.value === "1st") {
+          sub.innerText = arr[6];
+        }
+        if (year.value === "4th" && sem.value === "2nd") {
+          sub.innerText = arr[7];
+        }
+      });
+    </script>
+  </body>
+</html>

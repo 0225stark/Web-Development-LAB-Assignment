@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>Web Worker</h1>
+<label>Enter a number</label>
+<input type="number" id="inputNumber">
+<button type="submit" onclick="startWorker()">Get Factorial</button>
+<p id="result"></p>
+<script>
+var w;
+
+function startWorker() {
+  if(typeof(Worker) !== "undefined") {
+    w = new Worker("fact.js");
+    w.postMessage(document.getElementById("inputNumber").value);
+    w.onmessage = function(event) {
+      document.getElementById("result").innerHTML = event.data;
+    };
+  } else {
+    document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Workers...";
+  }
+}
+</script>
+</body>
+</html>
+
+

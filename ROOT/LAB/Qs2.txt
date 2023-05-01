@@ -1,0 +1,8 @@
+Keep tomcat server running.
+
+Connect to remote web server(using ID and password).
+
+Command: telnet <ip address> <port number>
+
+After connection is established, enter the following Command
+GET /Qs_1/first.html HTTP/1.0

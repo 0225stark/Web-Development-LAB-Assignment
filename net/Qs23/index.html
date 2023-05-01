@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+        <title>Question 23</title>
+    </head>
+    <body>
+        <form>
+            <label for="state">Select State:</label>
+            <select id="state"></select><br><br>
+
+            <label for="city">Select City:</label>
+            <select id="city">
+                <option value="">City</option>
+            </select><br><br>
+            <input type="submit" value="RESET">
+        </form> 
+        <h3 id="info"></h3>
+        <script>
+            $(document).ready(function(){
+                $.get("state.jsp",function(data){
+                    $("#state").html(data);
+                });
+
+                $("#state").change(function(){
+                    var s = $(this).val();
+                    $.get("city.jsp",{state: s},function(data){
+                        $("#city").html(data);
+                    });
+                });
+                
+
+                $("#city").change(function(){
+                    var s = $("#state").val();
+                    var c = $(this).val();
+                    $.get("info.jsp", {state: s, city: c}, function(data){
+                        $("#info").html(data);
+                    });
+                });
+
+            });
+            
+        </script>
+    </body>
+</html>

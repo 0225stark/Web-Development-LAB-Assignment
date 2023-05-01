@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Question 27</title>
+    </head>
+    <body>
+        <form action="change.jsp" method="post" id="box">
+            <label for="oldpass">Old Password</label>
+            <input type="text" id="oldpass" name="oldpass"><br>
+            <p id="verifyPassword" style="color: red;"></p>
+
+            <label for="newpass">New Password</label>
+            <input type="password" id="newpass" name="newpass"><br><br>
+
+            <label for="retype">Re-type New Password</label>
+            <input type="password" id="retype" name="retype"><br><br>
+
+            <input type="submit" id="submitquery">
+
+            <p id="result">First Verify the Password before Changing</p>
+        </form>
+        
+        <script type="text/javascript" src="password.js"></script>
+    </body>
+</html>  
